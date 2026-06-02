@@ -2,6 +2,9 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import * as Joi from 'joi';
 import { HealthModule } from './health/health.module';
+import { DatabaseModule } from './database/database.module';
+import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -27,7 +30,10 @@ import { HealthModule } from './health/health.module';
         AUCTION_SCANNER_INTERVAL_SECONDS: Joi.number().required(),
       }),
     }),
+    DatabaseModule,
     HealthModule,
+    UsersModule,
+    AuthModule
   ],
 })
 export class AppModule {}
