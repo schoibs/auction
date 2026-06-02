@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import * as Joi from 'joi';
 import { HealthModule } from './health/health.module';
+import { DatabaseModule } from './database/database.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { HealthModule } from './health/health.module';
         AUCTION_SCANNER_INTERVAL_SECONDS: Joi.number().required(),
       }),
     }),
+    DatabaseModule,
     HealthModule,
   ],
 })
