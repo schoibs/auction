@@ -28,7 +28,7 @@ export class AuctionCloseQueueService {
       CLOSE_AUCTION_JOB,
       { auctionId: auction.id },
       {
-        jobId: `${CLOSE_AUCTION_JOB}:${auction.id}`,
+        jobId: `${CLOSE_AUCTION_JOB}-${auction.id}`,
         delay,
         attempts: 5,
         backoff: {
