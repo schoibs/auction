@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -12,11 +13,20 @@ async function bootstrap() {
     origin: configService.get<string>('CORS_ORIGIN'),
   });
 
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+    }),
+  );
+
   // swagger configuration (https://docs.nestjs.com/openapi/introduction)
   const swaggerConfig = new DocumentBuilder()
     .setTitle('Auction API')
     .setDescription('Online auction API for virtual trading cards')
     .setVersion('0.1.0')
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, swaggerConfig);
