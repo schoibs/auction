@@ -1,13 +1,9 @@
+import { BidResponse } from '../bids/bids.types';
 import { CardResponse } from '../cards/cards.types';
 import { PublicUser } from '../users/user.types';
 import { AuctionStatus } from './auction.entity';
 
-export interface BidSummaryResponse {
-  id: string;
-  bidderUserId: string;
-  amount: number;
-  createdAt: Date;
-}
+export type BidSummaryResponse = BidResponse;
 
 export interface AuctionResponse {
   id: string;
