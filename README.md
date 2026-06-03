@@ -45,13 +45,23 @@ Create a local `.env` from `.env.example`.
 
 ```bash
 cp .env.example .env
-docker compose up -- build
+```
+
+First time setup (PostgreSQL's UUID extension, migrations, and seed data):
+
+```bash
 docker compose up -d postgres redis
 docker compose build api worker
 docker compose exec postgres psql -U auction -d auction -c 'CREATE EXTENSION IF NOT EXISTS "uuid-ossp";'
 docker compose run --rm api npm run migration:run
 docker compose run --rm api npm run seed:local
 docker compose up api worker
+```
+
+For normal development after:
+
+```bash
+docker compose up --build
 ```
 
 Useful local URLs:
