@@ -7,16 +7,19 @@ import { Auction } from './auction.entity';
 import { AuctionsController } from './auctions.controller';
 import { AuctionsService } from './auctions.service';
 import { Bid } from '../bids/bid.entity';
+import { CardTransfer } from '../cards/card-transfer.entity';
+import { Card } from '../cards/card.entity';
+import { AuctionClosingService } from './auction-closing.service';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Auction, Bid]),
+    TypeOrmModule.forFeature([Auction, Bid, Card, CardTransfer]),
     AuctionJobsModule,
     UsersModule,
     CardTypesModule,
   ],
   controllers: [AuctionsController],
-  providers: [AuctionsService],
-  exports: [AuctionsService],
+  providers: [AuctionsService, AuctionClosingService],
+  exports: [AuctionsService, AuctionClosingService],  
 })
 export class AuctionsModule {}
