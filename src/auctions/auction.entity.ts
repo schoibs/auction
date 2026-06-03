@@ -10,7 +10,8 @@ import {
   } from 'typeorm';
   import { Card } from '../cards/card.entity';
   import { User } from '../users/user.entity';
-  
+  import { Bid } from '../bids/bid.entity';
+
   export enum AuctionStatus {
     ACTIVE = 'ACTIVE',
     CLOSING = 'CLOSING',
@@ -52,6 +53,10 @@ import {
   
     @Column({ name: 'current_highest_bid_id', type: 'uuid', nullable: true })
     currentHighestBidId!: string | null;
+
+    @ManyToOne(() => Bid, { nullable: true })
+    @JoinColumn({ name: 'current_highest_bid_id' })
+    currentHighestBid!: Bid | null;
   
     @Column({ name: 'start_time', type: 'timestamptz' })
     startTime!: Date;

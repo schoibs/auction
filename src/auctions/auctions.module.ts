@@ -6,10 +6,11 @@ import { UsersModule } from '../users/users.module';
 import { Auction } from './auction.entity';
 import { AuctionsController } from './auctions.controller';
 import { AuctionsService } from './auctions.service';
+import { Bid } from '../bids/bid.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Auction]),
+    TypeOrmModule.forFeature([Auction, Bid]),
     AuctionJobsModule,
     UsersModule,
     CardTypesModule,

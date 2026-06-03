@@ -1,32 +1,36 @@
 import {
-    BadRequestException,
-    ConflictException,
-    ForbiddenException,
-    Injectable,
-    NotFoundException,
-  } from '@nestjs/common';
-  import { ConfigService } from '@nestjs/config';
-  import { InjectRepository } from '@nestjs/typeorm';
-  import { DataSource, Repository } from 'typeorm';
-  import { AuctionCloseQueueService } from '../auction-jobs/auction-close-queue.service';
-  import { CardTypesService } from '../card-types/card-types.service';
-  import { Card, CardStatus } from '../cards/card.entity';
-  import { CardResponse } from '../cards/cards.types';
-  import { UsersService } from '../users/users.service';
-  import { Auction, AuctionStatus } from './auction.entity';
-  import {
-    AuctionDetailResponse,
-    AuctionResponse,
-    AuctionsPage,
-  } from './auctions.types';
-  import { CreateAuctionDto } from './dto/create-auction.dto';
-  import { ListAuctionsQueryDto } from './dto/list-auctions-query.dto';
+  BadRequestException,
+  ConflictException,
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { InjectRepository } from '@nestjs/typeorm';
+import { DataSource, Repository } from 'typeorm';
+import { AuctionCloseQueueService } from '../auction-jobs/auction-close-queue.service';
+import { CardTypesService } from '../card-types/card-types.service';
+import { Card, CardStatus } from '../cards/card.entity';
+import { CardResponse } from '../cards/cards.types';
+import { UsersService } from '../users/users.service';
+import { Auction, AuctionStatus } from './auction.entity';
+import {
+  AuctionDetailResponse,
+  AuctionResponse,
+  AuctionsPage,
+} from './auctions.types';
+import { CreateAuctionDto } from './dto/create-auction.dto';
+import { ListAuctionsQueryDto } from './dto/list-auctions-query.dto';
+import { Bid } from '../bids/bid.entity';
+import { BidResponse } from '../bids/bids.types';
   
 @Injectable()
 export class AuctionsService {
   constructor(
     @InjectRepository(Auction)
     private readonly auctionsRepository: Repository<Auction>,
+    @InjectRepository(Bid)
+    private readonly bidsRepository: Repository<Bid>,
     private readonly dataSource: DataSource,
     private readonly configService: ConfigService,
     private readonly auctionCloseQueueService: AuctionCloseQueueService,
@@ -103,6 +107,7 @@ export class AuctionsService {
       .leftJoinAndSelect('card.cardType', 'cardType')
       .leftJoinAndSelect('card.owner', 'cardOwner')
       .leftJoinAndSelect('auction.seller', 'seller')
+      .leftJoinAndSelect('auction.currentHighestBid', 'currentHighestBid')
       .where('auction.status = :status', { status });
 
     if (query.sellerUserId) {
@@ -151,15 +156,23 @@ export class AuctionsService {
           owner: true,
         },
         seller: true,
+        currentHighestBid: true,
       },
     });
-
+  
     if (!auction) {
       throw new NotFoundException('Auction not found');
     }
-
-    return this.toDetailResponse(auction);
+  
+    const recentBids = await this.bidsRepository.find({
+      where: { auctionId: auction.id },
+      order: { createdAt: 'DESC' },
+      take: 10,
+    });
+  
+    return this.toDetailResponse(auction, recentBids);
   }
+    
 
   private validateDuration(durationSeconds: number): void {
     const minDuration = Number(
@@ -176,12 +189,25 @@ export class AuctionsService {
     }
   }
 
-  private toDetailResponse(auction: Auction): AuctionDetailResponse {
+  private toDetailResponse(
+    auction: Auction,
+    recentBids: Bid[] = [],
+  ): AuctionDetailResponse {
     return {
       ...this.toResponse(auction),
       card: this.toCardResponse(auction.card),
       seller: this.usersService.toPublicUser(auction.seller),
-      recentBids: [],
+      recentBids: recentBids.map((bid) => this.toBidResponse(bid)),
+    };
+  }
+
+  private toBidResponse(bid: Bid): BidResponse {
+    return {
+      id: bid.id,
+      auctionId: bid.auctionId,
+      bidderUserId: bid.bidderUserId,
+      amount: bid.amount,
+      createdAt: bid.createdAt,
     };
   }
 
@@ -192,7 +218,9 @@ export class AuctionsService {
       sellerUserId: auction.sellerUserId,
       status: auction.status,
       startPrice: auction.startPrice,
-      currentHighestBid: null,
+      currentHighestBid: auction.currentHighestBid
+        ? this.toBidResponse(auction.currentHighestBid)
+        : null,
       startTime: auction.startTime,
       endTime: auction.endTime,
       closedAt: auction.closedAt,
