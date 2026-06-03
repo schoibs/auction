@@ -29,6 +29,8 @@ import {
       input: CreateBidDto,
     ): Promise<BidResponse> {
       const bid = await this.dataSource.transaction(async (manager) => {
+        
+        // important to lock auction when a bid is placed. keeps 2 competing bid requests honest
         const auction = await manager.findOne(Auction, {
           where: { id: auctionId },
           lock: { mode: 'pessimistic_write' },

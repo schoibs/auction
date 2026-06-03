@@ -2,6 +2,7 @@ import {
     Check,
     Column,
     CreateDateColumn,
+    Index,
     Entity,
     JoinColumn,
     ManyToOne,
@@ -10,6 +11,8 @@ import {
   import { Auction } from '../auctions/auction.entity';
   import { User } from '../users/user.entity';
   
+  @Index('idx_bids_auction_amount', ['auctionId', 'amount'])
+  @Index('idx_bids_bidder_user_id', ['bidderUserId'])
   @Check('"amount" > 0')
   @Entity('bids')
   export class Bid {

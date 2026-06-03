@@ -218,7 +218,9 @@ export class AuctionsService {
       sellerUserId: auction.sellerUserId,
       status: auction.status,
       startPrice: auction.startPrice,
-      currentHighestBid: null,
+      currentHighestBid: auction.currentHighestBid
+        ? this.toBidResponse(auction.currentHighestBid)
+        : null,
       startTime: auction.startTime,
       endTime: auction.endTime,
       closedAt: auction.closedAt,
