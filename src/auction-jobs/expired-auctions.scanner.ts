@@ -71,6 +71,11 @@ export class ExpiredAuctionsScanner implements OnModuleInit, OnModuleDestroy {
       if (expiredAuctions.length > 0) {
         this.logger.log(`Queued ${expiredAuctions.length} expired auction(s)`);
       }
+    } catch (error) {
+      this.logger.error(
+        'Failed to scan expired auctions',
+        error instanceof Error ? error.stack : String(error),
+      );
     } finally {
       this.running = false;
     }
