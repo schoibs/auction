@@ -23,7 +23,8 @@ import { CreateAuctionDto } from './dto/create-auction.dto';
 import { ListAuctionsQueryDto } from './dto/list-auctions-query.dto';
 import { Bid } from '../bids/bid.entity';
 import { BidResponse } from '../bids/bids.types';
-  
+import { RealtimeEventsPublisher } from '../realtime/realtime-events.publisher';
+
 @Injectable()
 export class AuctionsService {
   constructor(
@@ -36,6 +37,7 @@ export class AuctionsService {
     private readonly auctionCloseQueueService: AuctionCloseQueueService,
     private readonly usersService: UsersService,
     private readonly cardTypesService: CardTypesService,
+    private readonly realtimeEventsPublisher: RealtimeEventsPublisher,
   ) {}
 
   async create(
@@ -90,8 +92,19 @@ export class AuctionsService {
     } catch (error) {
       console.error(`Failed to schedule close job for auction ${auction.id}`, error);
     }
-
-    return this.findById(auction.id);
+    
+    const response = await this.findById(auction.id);
+    
+    await this.realtimeEventsPublisher.publishAuctionCreated({
+      auctionId: response.id,
+      cardId: response.cardId,
+      sellerUserId: response.sellerUserId,
+      startPrice: response.startPrice,
+      startTime: response.startTime.toISOString(),
+      endTime: response.endTime.toISOString(),
+    });
+    
+    return response;
   }
 
   async list(query: ListAuctionsQueryDto): Promise<AuctionsPage> {

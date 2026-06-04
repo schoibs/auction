@@ -12,6 +12,7 @@ import {
   import { BidResponse, BidsPage } from './bids.types';
   import { CreateBidDto } from './dto/create-bid.dto';
   import { BidListSort, ListBidsQueryDto } from './dto/list-bids-query.dto';
+  import { RealtimeEventsPublisher } from '../realtime/realtime-events.publisher';
   
   @Injectable()
   export class BidsService {
@@ -21,6 +22,7 @@ import {
       @InjectRepository(Auction)
       private readonly auctionsRepository: Repository<Auction>,
       private readonly dataSource: DataSource,
+      private readonly realtimeEventsPublisher: RealtimeEventsPublisher,
     ) {}
   
     async placeBid(
@@ -28,65 +30,91 @@ import {
       bidderUserId: string,
       input: CreateBidDto,
     ): Promise<BidResponse> {
-      const bid = await this.dataSource.transaction(async (manager) => {
-        
-        // important to lock auction when a bid is placed. keeps 2 competing bid requests honest
+      const result = await this.dataSource.transaction(async (manager) => {
         const auction = await manager.findOne(Auction, {
           where: { id: auctionId },
           lock: { mode: 'pessimistic_write' },
         });
-  
+    
         if (!auction) {
           throw new NotFoundException('Auction not found');
         }
-  
+    
         if (auction.status !== AuctionStatus.ACTIVE) {
           throw new ConflictException('Auction is not active');
         }
-  
+    
         const databaseNow = await this.getDatabaseNow(manager);
-  
+    
         if (databaseNow >= auction.endTime) {
           throw new ConflictException('Auction has ended');
         }
-  
+    
         if (auction.sellerUserId === bidderUserId) {
           throw new ForbiddenException('Seller cannot bid on own auction');
         }
-  
+    
         const currentHighestBid = auction.currentHighestBidId
           ? await manager.findOne(Bid, {
               where: { id: auction.currentHighestBidId },
             })
           : null;
-  
+    
         if (!currentHighestBid && input.amount < auction.startPrice) {
           throw new BadRequestException(
             `First bid must be at least ${auction.startPrice}`,
           );
         }
-  
+    
         if (currentHighestBid && input.amount <= currentHighestBid.amount) {
           throw new BadRequestException(
             `Bid must be greater than ${currentHighestBid.amount}`,
           );
         }
-  
+    
         const bidToSave = manager.create(Bid, {
           auctionId: auction.id,
           bidderUserId,
           amount: input.amount,
         });
-  
+    
         const savedBid = await manager.save(Bid, bidToSave);
-  
+    
         auction.currentHighestBidId = savedBid.id;
         await manager.save(Auction, auction);
-  
-        return savedBid;
+    
+        return {
+          bid: savedBid,
+          previousHighestBid: currentHighestBid,
+        };
       });
-  
-      return this.toResponse(bid);
+    
+      const response = this.toResponse(result.bid);
+    
+      await this.realtimeEventsPublisher.publishBidPlaced({
+        auctionId: response.auctionId,
+        bidId: response.id,
+        bidderUserId: response.bidderUserId,
+        amount: response.amount,
+        createdAt: response.createdAt.toISOString(),
+      });
+    
+      // only the previous highest bidder should receive auction.outbid
+      if (
+        result.previousHighestBid &&
+        result.previousHighestBid.bidderUserId !== bidderUserId
+      ) {
+        await this.realtimeEventsPublisher.publishOutbid({
+          auctionId: response.auctionId,
+          previousBidderUserId: result.previousHighestBid.bidderUserId,
+          newBidderUserId: response.bidderUserId,
+          newBidId: response.id,
+          amount: response.amount,
+          createdAt: response.createdAt.toISOString(),
+        });
+      }
+    
+      return response;
     }
   
     async listForAuction(
