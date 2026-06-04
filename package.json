@@ -16,6 +16,7 @@
     "start:worker:prod": "node dist/worker.js",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "seed:local": "ts-node -r tsconfig-paths/register scripts/seed-local.ts",
+    "socket:smoke": "ts-node -r tsconfig-paths/register scripts/socket-smoke.ts",
     "migration:create": "typeorm migration:create",
     "migration:generate": "typeorm-ts-node-commonjs migration:generate",
     "migration:run": "typeorm-ts-node-commonjs migration:run -d src/database/data-source.ts",
