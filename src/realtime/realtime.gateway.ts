@@ -13,14 +13,14 @@ import {
 } from '@nestjs/websockets';
 import { isUUID } from 'class-validator';
 import type { Server, Socket } from 'socket.io';
-import { CurrentUserPayload, JwtPayload } from '../auth/auth.types';
+import type { CurrentUserPayload, JwtPayload } from '../auth/auth.types';
 import { UsersService } from '../users/users.service';
 import {
-  AuctionRoomPayload,
   auctionRoom,
   RealtimeClientEvent,
   userRoom,
 } from './realtime-events.types';
+import type { AuctionRoomPayload } from './realtime-events.types';
 import { RealtimeSocketService } from './realtime-socket.service';
 
 interface AuthenticatedSocket extends Socket {
@@ -29,8 +29,8 @@ interface AuthenticatedSocket extends Socket {
   };
 }
 
-
-@WebSocketGateway({ // registers a Socket.IO server inside the Nest app
+@WebSocketGateway({
+  // registers a Socket.IO server inside the Nest app
   cors: {
     origin: process.env.CORS_ORIGIN ?? 'http://localhost:3000',
   },

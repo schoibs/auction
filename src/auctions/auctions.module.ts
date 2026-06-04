@@ -10,6 +10,7 @@ import { Bid } from '../bids/bid.entity';
 import { CardTransfer } from '../cards/card-transfer.entity';
 import { Card } from '../cards/card.entity';
 import { AuctionClosingService } from './auction-closing.service';
+import { RealtimePublisherModule } from '../realtime/realtime-publisher.module';
 
 @Module({
   imports: [
@@ -17,9 +18,10 @@ import { AuctionClosingService } from './auction-closing.service';
     AuctionJobsModule,
     UsersModule,
     CardTypesModule,
+    RealtimePublisherModule,
   ],
   controllers: [AuctionsController],
   providers: [AuctionsService, AuctionClosingService],
-  exports: [AuctionsService, AuctionClosingService],  
+  exports: [AuctionsService, AuctionClosingService],
 })
 export class AuctionsModule {}
