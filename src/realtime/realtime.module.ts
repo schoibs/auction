@@ -8,11 +8,7 @@ import { RealtimeSocketService } from './realtime-socket.service';
 
 @Module({
   imports: [AuthModule, UsersModule, RealtimePublisherModule],
-  providers: [
-    RealtimeGateway,
-    RealtimeSocketService,
-    RealtimeRedisSubscriber,
-  ],
+  providers: [RealtimeGateway, RealtimeSocketService, RealtimeRedisSubscriber],
   exports: [RealtimePublisherModule],
 })
 export class RealtimeModule {}

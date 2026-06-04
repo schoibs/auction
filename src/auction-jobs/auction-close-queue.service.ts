@@ -2,8 +2,10 @@ import { InjectQueue } from '@nestjs/bullmq';
 import { Injectable, Logger } from '@nestjs/common';
 import type { Queue } from 'bullmq';
 
-import { AUCTION_CLOSE_QUEUE, CLOSE_AUCTION_JOB } from './auction-jobs.constants';
-
+import {
+  AUCTION_CLOSE_QUEUE,
+  CLOSE_AUCTION_JOB,
+} from './auction-jobs.constants';
 
 export interface CloseAuctionJobData {
   auctionId: string;
@@ -16,7 +18,6 @@ interface SchedulableAuction {
 
 @Injectable()
 export class AuctionCloseQueueService {
-
   private readonly logger = new Logger(AuctionCloseQueueService.name);
 
   constructor(
@@ -26,7 +27,7 @@ export class AuctionCloseQueueService {
 
   async scheduleClose(auction: SchedulableAuction): Promise<void> {
     // call this method right after auction creation succeeds
-    // then a job to close the auction will be scheduled for when the auction ends 
+    // then a job to close the auction will be scheduled for when the auction ends
     const delay = Math.max(0, auction.endTime.getTime() - Date.now());
 
     await this.auctionCloseQueue.add(

@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post, Query, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import type { CurrentUserPayload } from '../auth/auth.types';
 import { AuctionIdParamDto } from '../auctions/dto/auction-id-param.dto';
@@ -22,11 +30,7 @@ export class BidsController {
     @CurrentUser() user: CurrentUserPayload,
     @Body() createBidDto: CreateBidDto,
   ): Promise<BidResponse> {
-    return this.bidsService.placeBid(
-      params.auctionId,
-      user.id,
-      createBidDto,
-    );
+    return this.bidsService.placeBid(params.auctionId, user.id, createBidDto);
   }
 
   @Get()

@@ -7,12 +7,7 @@ import { AppConfigModule } from './config/app-config.module';
 import { DatabaseModule } from './database/database.module';
 
 @Module({
-  imports: [
-    AppConfigModule,
-    DatabaseModule,
-    AuctionJobsModule,
-    AuctionsModule,
-  ],
+  imports: [AppConfigModule, DatabaseModule, AuctionJobsModule, AuctionsModule],
   providers: [AuctionCloseProcessor, ExpiredAuctionsScanner],
 })
 export class WorkerModule {}

@@ -52,7 +52,8 @@ export class CardsService {
 
     return {
       items: items.map((card) => this.toResponse(card)),
-      nextCursor: hasNextPage && lastItem ? lastItem.createdAt.toISOString() : null,
+      nextCursor:
+        hasNextPage && lastItem ? lastItem.createdAt.toISOString() : null,
     };
   }
 

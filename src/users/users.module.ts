@@ -5,7 +5,7 @@ import { UsersService } from './users.service';
 
 @Module({
   // TypeORM automatically gives this module the Repository<User> here
-  imports: [TypeOrmModule.forFeature([User])], 
+  imports: [TypeOrmModule.forFeature([User])],
   providers: [UsersService],
   exports: [UsersService],
 })

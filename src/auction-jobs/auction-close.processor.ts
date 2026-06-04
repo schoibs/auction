@@ -2,8 +2,14 @@ import { Processor, WorkerHost } from '@nestjs/bullmq';
 import { Logger } from '@nestjs/common';
 import type { Job } from 'bullmq';
 import { AuctionClosingService } from '../auctions/auction-closing.service';
-import { AuctionCloseQueueService, CloseAuctionJobData } from './auction-close-queue.service';
-import { AUCTION_CLOSE_QUEUE, CLOSE_AUCTION_JOB } from './auction-jobs.constants';
+import {
+  AuctionCloseQueueService,
+  CloseAuctionJobData,
+} from './auction-close-queue.service';
+import {
+  AUCTION_CLOSE_QUEUE,
+  CLOSE_AUCTION_JOB,
+} from './auction-jobs.constants';
 
 @Processor(AUCTION_CLOSE_QUEUE)
 export class AuctionCloseProcessor extends WorkerHost {

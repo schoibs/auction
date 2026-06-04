@@ -75,7 +75,7 @@ export class RealtimeEventsPublisher implements OnModuleDestroy {
         JSON.stringify(event),
       );
     } catch (error) {
-        // just log errors, no need throw back into the auction flow. else might undo the bid/close auction flow.
+      // just log errors, no need throw back into the auction flow. else might undo the bid/close auction flow.
       this.logger.warn(
         `Failed to publish realtime event ${event.type}: ${
           error instanceof Error ? error.message : String(error)

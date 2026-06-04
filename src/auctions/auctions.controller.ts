@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post, Query, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import type { CurrentUserPayload } from '../auth/auth.types';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
@@ -30,9 +38,7 @@ export class AuctionsController {
   }
 
   @Get(':auctionId')
-  findById(
-    @Param() params: AuctionIdParamDto,
-  ): Promise<AuctionDetailResponse> {
+  findById(@Param() params: AuctionIdParamDto): Promise<AuctionDetailResponse> {
     return this.auctionsService.findById(params.auctionId);
   }
 }

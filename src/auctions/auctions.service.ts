@@ -90,11 +90,14 @@ export class AuctionsService {
     try {
       await this.auctionCloseQueueService.scheduleClose(auction);
     } catch (error) {
-      console.error(`Failed to schedule close job for auction ${auction.id}`, error);
+      console.error(
+        `Failed to schedule close job for auction ${auction.id}`,
+        error,
+      );
     }
-    
+
     const response = await this.findById(auction.id);
-    
+
     await this.realtimeEventsPublisher.publishAuctionCreated({
       auctionId: response.id,
       cardId: response.cardId,
@@ -103,7 +106,7 @@ export class AuctionsService {
       startTime: response.startTime.toISOString(),
       endTime: response.endTime.toISOString(),
     });
-    
+
     return response;
   }
 
@@ -155,7 +158,10 @@ export class AuctionsService {
       items: items.map((auction) => this.toDetailResponse(auction)),
       nextCursor:
         hasNextPage && lastItem
-          ? (isActiveList ? lastItem.endTime : lastItem.closedAt)?.toISOString() ?? null
+          ? ((isActiveList
+              ? lastItem.endTime
+              : lastItem.closedAt
+            )?.toISOString() ?? null)
           : null,
     };
   }
@@ -172,20 +178,19 @@ export class AuctionsService {
         currentHighestBid: true,
       },
     });
-  
+
     if (!auction) {
       throw new NotFoundException('Auction not found');
     }
-  
+
     const recentBids = await this.bidsRepository.find({
       where: { auctionId: auction.id },
       order: { createdAt: 'DESC' },
       take: 10,
     });
-  
+
     return this.toDetailResponse(auction, recentBids);
   }
-    
 
   private validateDuration(durationSeconds: number): void {
     const minDuration = Number(

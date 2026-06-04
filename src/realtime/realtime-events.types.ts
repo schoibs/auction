@@ -79,4 +79,3 @@ export type RealtimeAuctionEvent =
       type: RealtimeServerEvent.AUCTION_CANCELLED;
       payload: AuctionCancelledPayload;
     };
-    
