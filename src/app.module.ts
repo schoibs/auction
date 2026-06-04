@@ -9,6 +9,7 @@ import { CardsModule } from './cards/cards.module';
 import { AuctionJobsModule } from './auction-jobs/auction-jobs.module';
 import { AuctionsModule } from './auctions/auctions.module';
 import { BidsModule } from './bids/bids.module';
+import { RealtimeModule } from './realtime/realtime.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { BidsModule } from './bids/bids.module';
     AuctionJobsModule,
     AuctionsModule,
     BidsModule,
+    RealtimeModule,
   ],
 })
 export class AppModule {}
