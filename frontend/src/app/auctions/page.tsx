@@ -6,7 +6,7 @@ export default function AuctionsPage() {
   return (
     <Suspense
       fallback={
-        <main className="page-shell" id="main-content">
+        <main className="page-shell" id="main-content" tabIndex={-1}>
           <LoadingState label="Loading marketplace…" cardCount={4} />
         </main>
       }

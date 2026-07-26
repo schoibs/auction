@@ -48,9 +48,15 @@ export default function MyCardsPage() {
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const [loadMoreError, setLoadMoreError] = useState<string[] | null>(null);
   const [selectedCard, setSelectedCard] = useState<Card | null>(null);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [refreshError, setRefreshError] = useState<string[] | null>(null);
   const inventoryKey = `${filter}:${refreshKey}`;
   const inventoryKeyRef = useRef(inventoryKey);
   inventoryKeyRef.current = inventoryKey;
+  const cardsRef = useRef(cards);
+  cardsRef.current = cards;
+  const loadedFilterRef = useRef<InventoryFilter | null>(null);
+  const backgroundRefreshRef = useRef(false);
 
   useEffect(() => {
     if (!protectedPage.isReady || !token) {
@@ -58,10 +64,22 @@ export default function MyCardsPage() {
     }
 
     const controller = new AbortController();
+    const isBackgroundRefresh =
+      backgroundRefreshRef.current &&
+      loadedFilterRef.current === filter &&
+      cardsRef.current !== null;
+    backgroundRefreshRef.current = false;
 
-    setCards(null);
-    setNextCursor(null);
-    setListError(null);
+    if (isBackgroundRefresh) {
+      setIsRefreshing(true);
+      setRefreshError(null);
+    } else {
+      setCards(null);
+      setNextCursor(null);
+      setListError(null);
+      setIsRefreshing(false);
+      setRefreshError(null);
+    }
     setIsLoadingMore(false);
     setLoadMoreError(null);
 
@@ -70,8 +88,10 @@ export default function MyCardsPage() {
       signal: controller.signal,
     })
       .then((page) => {
+        loadedFilterRef.current = filter;
         setCards(page.items);
         setNextCursor(page.nextCursor);
+        setListError(null);
         setSelectedCard((current) =>
           current
             ? (page.items.find((card) => card.id === current.id) ?? current)
@@ -83,18 +103,34 @@ export default function MyCardsPage() {
           return;
         }
 
-        setListError(getErrorMessages(error, 'Unable to load your cards.'));
+        const messages = getErrorMessages(
+          error,
+          'Unable to load your cards.',
+        );
+
+        if (isBackgroundRefresh) {
+          setRefreshError(messages);
+        } else {
+          setListError(messages);
+        }
+      })
+      .finally(() => {
+        if (!controller.signal.aborted && isBackgroundRefresh) {
+          setIsRefreshing(false);
+        }
       });
 
     return () => controller.abort();
   }, [filter, handleUnauthorized, protectedPage.isReady, refreshKey, token]);
 
   function changeFilter(nextFilter: InventoryFilter) {
+    backgroundRefreshRef.current = false;
     setSelectedCard(null);
     setFilter(nextFilter);
   }
 
   function refreshInventory() {
+    backgroundRefreshRef.current = cardsRef.current !== null;
     setRefreshKey((key) => key + 1);
   }
 
@@ -146,7 +182,7 @@ export default function MyCardsPage() {
 
   if (protectedPage.isLoading || protectedPage.isRedirecting) {
     return (
-      <main className="page-shell" id="main-content">
+      <main className="page-shell" id="main-content" tabIndex={-1}>
         <section className="state-panel" aria-live="polite">
           <p>
             {protectedPage.isLoading
@@ -160,7 +196,7 @@ export default function MyCardsPage() {
 
   if (protectedPage.sessionVerificationError) {
     return (
-      <main className="page-shell" id="main-content">
+      <main className="page-shell" id="main-content" tabIndex={-1}>
         <section className="state-panel" aria-labelledby="session-error-title">
           <p className="eyebrow">Connection issue</p>
           <h1 id="session-error-title">Session could not be verified</h1>
@@ -183,7 +219,7 @@ export default function MyCardsPage() {
   }
 
   return (
-    <main className="page-shell" id="main-content">
+    <main className="page-shell" id="main-content" tabIndex={-1}>
       <header className={styles.pageHeader}>
         <div>
           <p className="eyebrow">
@@ -195,7 +231,11 @@ export default function MyCardsPage() {
       </header>
 
       <section className={styles.filters} aria-label="Inventory filters">
-        <div className={styles.statusGroup} aria-label="Card status">
+        <div
+          className={styles.statusGroup}
+          role="group"
+          aria-label="Card status"
+        >
           {(Object.keys(FILTER_LABELS) as InventoryFilter[]).map((value) => (
             <button
               className={filter === value ? styles.activeTab : styles.tab}
@@ -213,12 +253,29 @@ export default function MyCardsPage() {
         <button
           className={styles.refresh}
           type="button"
-          disabled={cards === null && listError === null}
+          disabled={
+            (cards === null && listError === null) || isRefreshing
+          }
           onClick={refreshInventory}
         >
-          Refresh
+          {isRefreshing ? 'Refreshing…' : 'Refresh'}
         </button>
       </section>
+
+      {isRefreshing ? (
+        <p className={styles.refreshStatus} aria-live="polite">
+          Updating your cards…
+        </p>
+      ) : null}
+
+      {refreshError ? (
+        <div className={styles.refreshError} role="status">
+          <span>{refreshError.join(' ')}</span>
+          <button type="button" onClick={refreshInventory}>
+            Retry refresh
+          </button>
+        </div>
+      ) : null}
 
       {selectedCard ? (
         <SellCardForm

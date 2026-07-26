@@ -27,7 +27,7 @@ export function AuthForm({
   onSubmit,
 }: AuthFormProps) {
   return (
-    <main className="page-shell" id="main-content">
+    <main className="page-shell" id="main-content" tabIndex={-1}>
       <section className={styles.panel} aria-labelledby="auth-title">
         <p className="eyebrow">Account</p>
         <h1 className={styles.title} id="auth-title">

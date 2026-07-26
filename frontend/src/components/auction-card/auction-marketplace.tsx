@@ -73,6 +73,8 @@ export function AuctionMarketplace() {
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const [loadMoreError, setLoadMoreError] = useState<string[] | null>(null);
   const [newAuctionAvailable, setNewAuctionAvailable] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [refreshError, setRefreshError] = useState<string[] | null>(null);
 
   const selectedCardTypeId =
     cardTypes?.some((cardType) => cardType.id === rawCardTypeId) === true
@@ -81,9 +83,14 @@ export function AuctionMarketplace() {
   const filterKey = `${status}:${selectedCardTypeId ?? ''}`;
   const filterKeyRef = useRef(filterKey);
   filterKeyRef.current = filterKey;
+  const auctionsRef = useRef(auctions);
+  auctionsRef.current = auctions;
+  const loadedFilterKeyRef = useRef<string | null>(null);
+  const backgroundRefreshRef = useRef(false);
 
   useEffect(() => {
     setNewAuctionAvailable(false);
+    backgroundRefreshRef.current = false;
   }, [filterKey]);
 
   useEffect(() => {
@@ -132,10 +139,22 @@ export function AuctionMarketplace() {
     }
 
     const controller = new AbortController();
+    const isBackgroundRefresh =
+      backgroundRefreshRef.current &&
+      loadedFilterKeyRef.current === filterKey &&
+      auctionsRef.current !== null;
+    backgroundRefreshRef.current = false;
 
-    setAuctions(null);
-    setNextCursor(null);
-    setListError(null);
+    if (isBackgroundRefresh) {
+      setIsRefreshing(true);
+      setRefreshError(null);
+    } else {
+      setAuctions(null);
+      setNextCursor(null);
+      setListError(null);
+      setIsRefreshing(false);
+      setRefreshError(null);
+    }
     setIsLoadingMore(false);
     setLoadMoreError(null);
 
@@ -144,18 +163,32 @@ export function AuctionMarketplace() {
       { signal: controller.signal },
     )
       .then((page) => {
+        loadedFilterKeyRef.current = filterKey;
         setAuctions(page.items);
         setNextCursor(page.nextCursor);
+        setListError(null);
       })
       .catch((error: unknown) => {
         if (!controller.signal.aborted) {
-          setListError(getErrorMessages(error));
+          const messages = getErrorMessages(error);
+
+          if (isBackgroundRefresh) {
+            setRefreshError(messages);
+          } else {
+            setListError(messages);
+          }
+        }
+      })
+      .finally(() => {
+        if (!controller.signal.aborted && isBackgroundRefresh) {
+          setIsRefreshing(false);
         }
       });
 
     return () => controller.abort();
   }, [
     cardTypes,
+    filterKey,
     rawCardTypeId,
     rawStatus,
     refreshKey,
@@ -168,6 +201,7 @@ export function AuctionMarketplace() {
     nextStatus: MarketplaceStatus,
     nextCardTypeId: string | null,
   ) {
+    backgroundRefreshRef.current = false;
     router.replace(marketplacePath(nextStatus, nextCardTypeId), {
       scroll: false,
     });
@@ -175,6 +209,7 @@ export function AuctionMarketplace() {
 
   function refreshAuctions() {
     setNewAuctionAvailable(false);
+    backgroundRefreshRef.current = auctionsRef.current !== null;
     setRefreshKey((key) => key + 1);
   }
 
@@ -217,7 +252,7 @@ export function AuctionMarketplace() {
   }
 
   return (
-    <main className="page-shell" id="main-content">
+    <main className="page-shell" id="main-content" tabIndex={-1}>
       <header className={styles.pageHeader}>
         <div>
           <p className="eyebrow">Marketplace</p>
@@ -242,6 +277,7 @@ export function AuctionMarketplace() {
             cardTypeId={selectedCardTypeId}
             cardTypes={cardTypes}
             disabled={auctions === null && listError === null}
+            isRefreshing={isRefreshing}
             onStatusChange={(nextStatus) =>
               updateFilters(nextStatus, selectedCardTypeId)
             }
@@ -256,6 +292,21 @@ export function AuctionMarketplace() {
               <span>A new auction is available.</span>
               <button type="button" onClick={refreshAuctions}>
                 Refresh auctions
+              </button>
+            </div>
+          ) : null}
+
+          {isRefreshing ? (
+            <p className={styles.refreshStatus} aria-live="polite">
+              Updating auctions…
+            </p>
+          ) : null}
+
+          {refreshError ? (
+            <div className={styles.refreshError} role="status">
+              <span>{refreshError.join(' ')}</span>
+              <button type="button" onClick={refreshAuctions}>
+                Retry refresh
               </button>
             </div>
           ) : null}

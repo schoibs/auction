@@ -1,3 +1,5 @@
+import { useId } from 'react';
+
 interface ErrorStateProps {
   title?: string;
   messages: string[];
@@ -11,9 +13,11 @@ export function ErrorState({
   onRetry,
   retryLabel = 'Try again',
 }: ErrorStateProps) {
+  const titleId = useId();
+
   return (
-    <section className="state-panel" role="alert" aria-labelledby="error-title">
-      <h2 id="error-title">{title}</h2>
+    <section className="state-panel" role="alert" aria-labelledby={titleId}>
+      <h2 id={titleId}>{title}</h2>
       {messages.map((message) => (
         <p key={message}>{message}</p>
       ))}

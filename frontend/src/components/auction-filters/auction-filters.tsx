@@ -8,6 +8,7 @@ interface AuctionFiltersProps {
   cardTypeId: string | null;
   cardTypes: CardType[];
   disabled?: boolean;
+  isRefreshing?: boolean;
   onStatusChange(status: MarketplaceStatus): void;
   onCardTypeChange(cardTypeId: string | null): void;
   onRefresh(): void;
@@ -18,13 +19,18 @@ export function AuctionFilters({
   cardTypeId,
   cardTypes,
   disabled = false,
+  isRefreshing = false,
   onStatusChange,
   onCardTypeChange,
   onRefresh,
 }: AuctionFiltersProps) {
   return (
     <section className={styles.filters} aria-label="Auction filters">
-      <div className={styles.statusGroup} aria-label="Auction status">
+      <div
+        className={styles.statusGroup}
+        role="group"
+        aria-label="Auction status"
+      >
         <button
           className={status === 'ACTIVE' ? styles.activeTab : styles.tab}
           type="button"
@@ -65,10 +71,10 @@ export function AuctionFilters({
       <button
         className={styles.refresh}
         type="button"
-        disabled={disabled}
+        disabled={disabled || isRefreshing}
         onClick={onRefresh}
       >
-        Refresh
+        {isRefreshing ? 'Refreshing…' : 'Refresh'}
       </button>
     </section>
   );

@@ -205,7 +205,7 @@ export function AuctionDetail({ auctionId }: { auctionId: string }) {
 
   if (!isValidAuctionId) {
     return (
-      <main className="page-shell" id="main-content">
+      <main className="page-shell" id="main-content" tabIndex={-1}>
         <section className="state-panel" aria-labelledby="invalid-link-title">
           <p className="eyebrow">Invalid link</p>
           <h1 id="invalid-link-title">This auction link is not valid</h1>
@@ -218,7 +218,7 @@ export function AuctionDetail({ auctionId }: { auctionId: string }) {
 
   if (notFound) {
     return (
-      <main className="page-shell" id="main-content">
+      <main className="page-shell" id="main-content" tabIndex={-1}>
         <section className="state-panel" aria-labelledby="not-found-title">
           <p className="eyebrow">Not found</p>
           <h1 id="not-found-title">Auction not found</h1>
@@ -231,7 +231,7 @@ export function AuctionDetail({ auctionId }: { auctionId: string }) {
 
   if (error) {
     return (
-      <main className="page-shell" id="main-content">
+      <main className="page-shell" id="main-content" tabIndex={-1}>
         <Link className={styles.backLink} href="/auctions">
           ← Back to auctions
         </Link>
@@ -246,7 +246,7 @@ export function AuctionDetail({ auctionId }: { auctionId: string }) {
 
   if (!auction) {
     return (
-      <main className="page-shell" id="main-content">
+      <main className="page-shell" id="main-content" tabIndex={-1}>
         <LoadingState label="Loading auction details…" />
       </main>
     );
@@ -255,7 +255,7 @@ export function AuctionDetail({ auctionId }: { auctionId: string }) {
   const highestBid = auction.currentHighestBid;
 
   return (
-    <main className="page-shell" id="main-content">
+    <main className="page-shell" id="main-content" tabIndex={-1}>
       <Link className={styles.backLink} href="/auctions">
         ← Back to auctions
       </Link>

@@ -59,7 +59,7 @@ export function RegisterForm() {
 
   if (status === 'loading' || status === 'authenticated') {
     return (
-      <main className="page-shell" id="main-content">
+      <main className="page-shell" id="main-content" tabIndex={-1}>
         <section className="state-panel" aria-live="polite">
           <p>{status === 'loading' ? 'Checking your session…' : 'Redirecting…'}</p>
         </section>

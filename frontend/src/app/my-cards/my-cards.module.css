@@ -66,6 +66,35 @@
   opacity: 0.65;
 }
 
+.refreshStatus {
+  margin: 1rem 0 0;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.refreshError {
+  display: flex;
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--danger-border);
+  border-radius: 0.65rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  color: var(--danger-strong);
+  background: var(--danger-background);
+}
+
+.refreshError button {
+  min-height: 2.75rem;
+  padding: 0.5rem;
+  border: 0;
+  color: var(--danger-strong);
+  background: transparent;
+  font-weight: 700;
+  cursor: pointer;
+}
+
 .results {
   margin-top: 2.5rem;
 }
@@ -96,6 +125,7 @@
 }
 
 @media (max-width: 600px) {
+  .refreshError,
   .filters {
     align-items: stretch;
     flex-direction: column;
