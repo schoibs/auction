@@ -39,6 +39,10 @@ http://localhost:3000/docs
 - npm
 - Docker Desktop or another Docker Compose compatible runtime
 
+The complete local stack includes the frontend, API, and worker. The API and
+worker are both required for complete auction behavior: the worker closes
+expired auctions in the background.
+
 ### Docker Compose Setup
 
 Create a local `.env` from `.env.example`.
@@ -51,11 +55,11 @@ First time setup (PostgreSQL's UUID extension, migrations, and seed data):
 
 ```bash
 docker compose up -d postgres redis
-docker compose build api worker
+docker compose build api worker frontend
 docker compose exec postgres psql -U auction -d auction -c 'CREATE EXTENSION IF NOT EXISTS "uuid-ossp";'
 docker compose run --rm api npm run migration:run
 docker compose run --rm api npm run seed:local
-docker compose up api worker
+docker compose up api worker frontend
 ```
 
 For normal development after:
@@ -68,6 +72,7 @@ Useful local URLs:
 
 ```text
 API:     http://localhost:3000
+Frontend: http://localhost:3001
 Swagger: http://localhost:3000/docs
 Adminer: http://localhost:8080
 ```
@@ -80,6 +85,13 @@ Server:   postgres
 Username: auction
 Password: auction
 Database: auction
+```
+
+Frontend-only logs and rebuilds:
+
+```bash
+docker compose logs -f frontend
+docker compose up --build frontend
 ```
 
 ### Host Node Setup
@@ -127,6 +139,5 @@ It also creates three card types and mints cards for the seeded users.
 
 ## Current Gaps
 
-- No frontend is included yet.
 - Card type creation and card minting are protected, but there is no admin/role model yet.
 - Auction cancellation exists as a status but is not exposed as an endpoint.
