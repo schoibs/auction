@@ -1,0 +1,101 @@
+.panel {
+  width: min(100%, 32rem);
+  margin: 0 auto;
+  padding: clamp(1.25rem, 5vw, 2.25rem);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  background: var(--surface);
+  box-shadow: 0 1rem 2.5rem rgb(23 32 42 / 8%);
+}
+
+.title {
+  margin-bottom: 0.75rem;
+  font-size: clamp(2rem, 7vw, 3rem);
+}
+
+.description {
+  margin-bottom: 1.75rem;
+  color: var(--text-muted);
+}
+
+.form {
+  display: grid;
+  gap: 1.1rem;
+}
+
+.field {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.field label {
+  font-weight: 700;
+}
+
+.field input {
+  width: 100%;
+  min-height: 2.9rem;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 0.55rem;
+  color: var(--text);
+  background: var(--surface);
+}
+
+.field input[aria-invalid='true'] {
+  border-color: var(--danger);
+}
+
+.fieldError {
+  margin: 0;
+  color: var(--danger);
+  font-size: 0.9rem;
+}
+
+.formError {
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--danger-border);
+  border-radius: 0.55rem;
+  color: var(--danger-strong);
+  background: var(--danger-background);
+}
+
+.formError p {
+  margin-bottom: 0.35rem;
+  font-weight: 700;
+}
+
+.formError ul {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.submitButton {
+  min-height: 3rem;
+  padding: 0.7rem 1rem;
+  border: 0;
+  border-radius: 0.6rem;
+  color: var(--accent-contrast);
+  background: var(--accent-strong);
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.submitButton:hover:not(:disabled) {
+  background: var(--accent);
+}
+
+.submitButton:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.footer {
+  margin-top: 1.5rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.footer p {
+  margin-bottom: 0;
+}

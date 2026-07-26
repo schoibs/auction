@@ -1,5 +1,8 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
+import { AppHeader } from '../components/app-header/app-header';
+import { AuthProvider } from '../contexts/auth-context';
+import { RealtimeProvider } from '../contexts/realtime-context';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -14,8 +17,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <AuthProvider>
+          <RealtimeProvider>
+            <a className="skip-link" href="#main-content">
+              Skip to main content
+            </a>
+            <AppHeader />
+            {children}
+          </RealtimeProvider>
+        </AuthProvider>
+      </body>
     </html>
   );
 }
-
