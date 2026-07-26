@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import { AppHeader } from '../components/app-header/app-header';
+import { NotificationRegion } from '../components/notification-region/notification-region';
 import { AuthProvider } from '../contexts/auth-context';
 import { RealtimeProvider } from '../contexts/realtime-context';
 import './globals.css';
@@ -24,6 +25,7 @@ export default function RootLayout({
               Skip to main content
             </a>
             <AppHeader />
+            <NotificationRegion />
             {children}
           </RealtimeProvider>
         </AuthProvider>

@@ -1,0 +1,55 @@
+.region {
+  position: fixed;
+  z-index: 20;
+  right: 1rem;
+  bottom: 1rem;
+  width: min(calc(100% - 2rem), 28rem);
+}
+
+.region ul {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  gap: 0.75rem;
+  list-style: none;
+}
+
+.notification {
+  display: flex;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-left: 0.35rem solid var(--accent-strong);
+  border-radius: 0.75rem;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  background: var(--surface);
+  box-shadow: 0 0.75rem 2rem rgb(23 32 42 / 18%);
+}
+
+.notification p {
+  margin: 0.25rem 0 0;
+  color: var(--text-muted);
+}
+
+.notification button {
+  min-height: 2.75rem;
+  padding: 0.5rem;
+  border: 0;
+  color: var(--accent-strong);
+  background: transparent;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+@media (max-width: 480px) {
+  .region {
+    right: 0.625rem;
+    bottom: 0.625rem;
+    width: calc(100% - 1.25rem);
+  }
+
+  .notification {
+    flex-direction: column;
+  }
+}

@@ -3,6 +3,7 @@
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { useAuth } from '../../contexts/auth-context';
+import { useRealtime } from '../../contexts/realtime-context';
 import { apiFetch } from '../../lib/api-client';
 import { getErrorMessages } from '../../lib/api-error';
 import type { AuctionDetail, CardType, CursorPage } from '../../types/api';
@@ -56,6 +57,7 @@ export function AuctionMarketplace() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { user } = useAuth();
+  const { socket } = useRealtime();
   const rawStatus = searchParams.get('status');
   const rawCardTypeId = searchParams.get('cardTypeId');
   const status: MarketplaceStatus =
@@ -70,6 +72,7 @@ export function AuctionMarketplace() {
   const [refreshKey, setRefreshKey] = useState(0);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const [loadMoreError, setLoadMoreError] = useState<string[] | null>(null);
+  const [newAuctionAvailable, setNewAuctionAvailable] = useState(false);
 
   const selectedCardTypeId =
     cardTypes?.some((cardType) => cardType.id === rawCardTypeId) === true
@@ -78,6 +81,23 @@ export function AuctionMarketplace() {
   const filterKey = `${status}:${selectedCardTypeId ?? ''}`;
   const filterKeyRef = useRef(filterKey);
   filterKeyRef.current = filterKey;
+
+  useEffect(() => {
+    setNewAuctionAvailable(false);
+  }, [filterKey]);
+
+  useEffect(() => {
+    if (!socket || status !== 'ACTIVE') {
+      return;
+    }
+
+    const handleAuctionCreated = () => setNewAuctionAvailable(true);
+    socket.on('auction.created', handleAuctionCreated);
+
+    return () => {
+      socket.off('auction.created', handleAuctionCreated);
+    };
+  }, [socket, status]);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -153,6 +173,11 @@ export function AuctionMarketplace() {
     });
   }
 
+  function refreshAuctions() {
+    setNewAuctionAvailable(false);
+    setRefreshKey((key) => key + 1);
+  }
+
   async function loadMore() {
     if (!nextCursor || isLoadingMore) {
       return;
@@ -223,8 +248,17 @@ export function AuctionMarketplace() {
             onCardTypeChange={(cardTypeId) =>
               updateFilters(status, cardTypeId)
             }
-            onRefresh={() => setRefreshKey((key) => key + 1)}
+            onRefresh={refreshAuctions}
           />
+
+          {newAuctionAvailable ? (
+            <div className={styles.newAuctionNotice} aria-live="polite">
+              <span>A new auction is available.</span>
+              <button type="button" onClick={refreshAuctions}>
+                Refresh auctions
+              </button>
+            </div>
+          ) : null}
 
           <section
             className={styles.results}
@@ -249,7 +283,7 @@ export function AuctionMarketplace() {
               listError ? (
                 <ErrorState
                   messages={listError}
-                  onRetry={() => setRefreshKey((key) => key + 1)}
+                  onRetry={refreshAuctions}
                 />
               ) : (
                 <LoadingState label="Loading auctions…" cardCount={4} />

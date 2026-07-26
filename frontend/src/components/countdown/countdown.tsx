@@ -38,7 +38,12 @@ function accessibleDuration(totalSeconds: number): string {
   return `${minutes} minute${minutes === 1 ? '' : 's'} remaining`;
 }
 
-export function Countdown({ endTime }: { endTime: IsoDateString }) {
+interface CountdownProps {
+  endTime: IsoDateString;
+  onEnd?: () => void;
+}
+
+export function Countdown({ endTime, onEnd }: CountdownProps) {
   const [now, setNow] = useState<number | null>(null);
   const endTimestamp = new Date(endTime).getTime();
 
@@ -48,6 +53,22 @@ export function Countdown({ endTime }: { endTime: IsoDateString }) {
     const interval = window.setInterval(() => setNow(Date.now()), 1_000);
     return () => window.clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    if (!onEnd || Number.isNaN(endTimestamp)) {
+      return;
+    }
+
+    const remainingMilliseconds = endTimestamp - Date.now();
+
+    if (remainingMilliseconds <= 0) {
+      onEnd();
+      return;
+    }
+
+    const timeout = window.setTimeout(onEnd, remainingMilliseconds);
+    return () => window.clearTimeout(timeout);
+  }, [endTimestamp, onEnd]);
 
   if (Number.isNaN(endTimestamp)) {
     return <span>Unknown end time</span>;
