@@ -1,0 +1,131 @@
+.panel {
+  margin-top: 1.5rem;
+  padding: clamp(1.1rem, 3vw, 1.5rem);
+  border: 1px solid var(--accent-strong);
+  border-radius: 0.9rem;
+  background: var(--surface);
+  box-shadow: 0 0.8rem 2rem rgb(23 32 42 / 8%);
+}
+
+.heading {
+  display: flex;
+  margin-bottom: 1.25rem;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.heading h2 {
+  margin: 0;
+}
+
+.cancel {
+  min-height: 2.75rem;
+  padding: 0.55rem 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 0.55rem;
+  color: var(--text);
+  background: var(--surface);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.panel form,
+.panel fieldset {
+  display: grid;
+  gap: 1.2rem;
+}
+
+.panel fieldset {
+  min-width: 0;
+  padding: 0;
+  border: 0;
+}
+
+.fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.field {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.field label,
+.choices > span {
+  font-weight: 700;
+}
+
+.field input {
+  width: 100%;
+  min-height: 2.9rem;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 0.55rem;
+  color: var(--text);
+  background: var(--surface);
+}
+
+.field input[aria-invalid='true'] {
+  border-color: var(--danger);
+}
+
+.hint {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.error,
+.formError {
+  color: var(--danger-strong);
+}
+
+.error,
+.formError p {
+  margin: 0;
+}
+
+.error {
+  font-size: 0.9rem;
+}
+
+.choices {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.choices > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.choices button {
+  min-height: 2.75rem;
+  padding: 0.55rem 0.8rem;
+  border: 1px solid var(--accent-strong);
+  border-radius: 999px;
+  color: var(--accent-strong);
+  background: var(--surface);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.formError {
+  padding: 0.75rem 0.9rem;
+  border: 1px solid var(--danger-border);
+  border-radius: 0.55rem;
+  background: var(--danger-background);
+}
+
+.formError p + p {
+  margin-top: 0.35rem;
+}
+
+@media (max-width: 620px) {
+  .fields {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

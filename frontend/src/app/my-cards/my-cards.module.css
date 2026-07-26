@@ -1,0 +1,117 @@
+.pageHeader {
+  margin-bottom: 2rem;
+}
+
+.pageHeader p:last-child {
+  margin-bottom: 0;
+  color: var(--text-muted);
+}
+
+.filters {
+  display: flex;
+  padding: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 0.85rem;
+  background: var(--surface);
+}
+
+.statusGroup {
+  display: flex;
+  padding: 0.2rem;
+  align-items: center;
+  border: 1px solid var(--border);
+  border-radius: 0.65rem;
+  background: var(--surface-muted);
+}
+
+.tab,
+.activeTab,
+.refresh {
+  min-height: 2.75rem;
+  border-radius: 0.5rem;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.tab,
+.activeTab {
+  padding: 0.55rem 0.9rem;
+  border: 0;
+}
+
+.tab {
+  color: var(--text-muted);
+  background: transparent;
+}
+
+.activeTab {
+  color: var(--accent-contrast);
+  background: var(--accent-strong);
+}
+
+.refresh {
+  padding: 0.55rem 1rem;
+  border: 1px solid var(--accent-strong);
+  color: var(--accent-strong);
+  background: var(--surface);
+}
+
+.tab:disabled,
+.activeTab:disabled,
+.refresh:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.results {
+  margin-top: 2.5rem;
+}
+
+.resultsHeading {
+  margin-bottom: 1rem;
+}
+
+.resultsHeading h2 {
+  margin-bottom: 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+  align-items: start;
+  gap: 1.25rem;
+}
+
+.loadMore {
+  display: flex;
+  margin-top: 2rem;
+  justify-content: center;
+}
+
+.incrementalError {
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 600px) {
+  .filters {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .statusGroup {
+    width: 100%;
+  }
+
+  .tab,
+  .activeTab {
+    flex: 1;
+    padding-inline: 0.55rem;
+  }
+
+  .refresh {
+    width: 100%;
+  }
+}
