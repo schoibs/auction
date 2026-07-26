@@ -1,0 +1,134 @@
+.backLink {
+  display: inline-flex;
+  min-height: 2.75rem;
+  margin-bottom: 1rem;
+  align-items: center;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.header {
+  display: flex;
+  margin-bottom: 2rem;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.header h1 {
+  margin-bottom: 0.5rem;
+}
+
+.header p:last-child {
+  margin-bottom: 0;
+  color: var(--text-muted);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(17rem, 0.8fr) minmax(0, 1.4fr);
+  align-items: start;
+  gap: clamp(1.5rem, 5vw, 4rem);
+}
+
+.visual {
+  width: min(100%, 27rem);
+  margin: 0 auto;
+}
+
+.information {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.pricePanel,
+.detailPanel,
+.bidPanel {
+  padding: clamp(1.1rem, 3vw, 1.5rem);
+  border: 1px solid var(--border);
+  border-radius: 0.9rem;
+  background: var(--surface);
+}
+
+.pricePanel {
+  display: flex;
+  flex-direction: column;
+}
+
+.pricePanel p,
+.pricePanel span {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+.pricePanel strong {
+  margin: 0.1rem 0;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  line-height: 1.1;
+}
+
+.detailPanel h2,
+.bidPanel h2 {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.details {
+  display: grid;
+  margin: 0;
+  gap: 0.75rem;
+}
+
+.details div {
+  display: grid;
+  grid-template-columns: minmax(7rem, 0.6fr) minmax(0, 1fr);
+  gap: 1rem;
+}
+
+.details dt {
+  color: var(--text-muted);
+}
+
+.details dd {
+  margin: 0;
+  font-weight: 700;
+  text-align: right;
+  text-transform: capitalize;
+}
+
+.sectionHeading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.sectionHeading span {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+@media (max-width: 780px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .visual {
+    width: min(100%, 22rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    flex-direction: column;
+  }
+
+  .details div {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.1rem;
+  }
+
+  .details dd {
+    text-align: left;
+  }
+}

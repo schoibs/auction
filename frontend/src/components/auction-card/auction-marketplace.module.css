@@ -1,0 +1,57 @@
+.pageHeader {
+  display: flex;
+  margin-bottom: 2rem;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.pageHeader p:last-child {
+  margin-bottom: 0;
+  color: var(--text-muted);
+}
+
+.results {
+  margin-top: 2.5rem;
+}
+
+.resultsHeading {
+  display: flex;
+  margin-bottom: 1rem;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.resultsHeading h2,
+.resultsHeading p {
+  margin-bottom: 0;
+}
+
+.resultsHeading p {
+  color: var(--text-muted);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+  gap: 1.25rem;
+}
+
+.loadMore {
+  display: flex;
+  margin-top: 2rem;
+  justify-content: center;
+}
+
+.incrementalError {
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 600px) {
+  .resultsHeading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+}

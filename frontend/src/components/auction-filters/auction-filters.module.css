@@ -1,0 +1,100 @@
+.filters {
+  display: flex;
+  padding: 1rem;
+  align-items: flex-end;
+  gap: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 0.85rem;
+  background: var(--surface);
+}
+
+.statusGroup {
+  display: flex;
+  padding: 0.2rem;
+  align-items: center;
+  border: 1px solid var(--border);
+  border-radius: 0.65rem;
+  background: var(--surface-muted);
+}
+
+.tab,
+.activeTab,
+.refresh {
+  min-height: 2.75rem;
+  border-radius: 0.5rem;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.tab,
+.activeTab {
+  padding: 0.55rem 0.9rem;
+  border: 0;
+}
+
+.tab {
+  color: var(--text-muted);
+  background: transparent;
+}
+
+.activeTab {
+  color: var(--accent-contrast);
+  background: var(--accent-strong);
+}
+
+.selectGroup {
+  display: flex;
+  min-width: min(100%, 15rem);
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.selectGroup label {
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.selectGroup select {
+  min-height: 2.75rem;
+  padding: 0.55rem 2.2rem 0.55rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  color: var(--text);
+  background: var(--surface);
+}
+
+.refresh {
+  margin-left: auto;
+  padding: 0.55rem 1rem;
+  border: 1px solid var(--accent-strong);
+  color: var(--accent-strong);
+  background: var(--surface);
+}
+
+.tab:disabled,
+.activeTab:disabled,
+.refresh:disabled,
+.selectGroup select:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+@media (max-width: 680px) {
+  .filters {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .statusGroup {
+    align-self: flex-start;
+  }
+
+  .selectGroup {
+    width: 100%;
+  }
+
+  .refresh {
+    width: 100%;
+    margin-left: 0;
+  }
+}

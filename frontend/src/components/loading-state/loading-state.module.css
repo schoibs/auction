@@ -1,0 +1,60 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+  gap: 1.25rem;
+}
+
+.card {
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  background: var(--surface);
+}
+
+.face,
+.line,
+.shortLine {
+  background: linear-gradient(100deg, var(--surface-muted) 25%, #f7f8fa 50%, var(--surface-muted) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite linear;
+}
+
+.face {
+  aspect-ratio: 5 / 4;
+  margin-bottom: 1rem;
+  border-radius: 0.75rem;
+}
+
+.line,
+.shortLine {
+  height: 0.8rem;
+  border-radius: 999px;
+}
+
+.shortLine {
+  width: 65%;
+  margin-top: 0.65rem;
+}
+
+.message {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 200% 0;
+  }
+
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .face,
+  .line,
+  .shortLine {
+    animation: none;
+  }
+}

@@ -1,14 +1,17 @@
+import { Suspense } from 'react';
+import { AuctionMarketplace } from '../../components/auction-card/auction-marketplace';
+import { LoadingState } from '../../components/loading-state/loading-state';
+
 export default function AuctionsPage() {
   return (
-    <main className="page-shell" id="main-content">
-      <section className="hero" aria-labelledby="page-title">
-        <p className="eyebrow">Marketplace</p>
-        <h1 id="page-title">Auctions are coming soon.</h1>
-        <p>
-          Sign in now, or continue browsing while the marketplace listings are
-          added soon.
-        </p>
-      </section>
-    </main>
+    <Suspense
+      fallback={
+        <main className="page-shell" id="main-content">
+          <LoadingState label="Loading marketplace…" cardCount={4} />
+        </main>
+      }
+    >
+      <AuctionMarketplace />
+    </Suspense>
   );
 }

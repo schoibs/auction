@@ -1,0 +1,56 @@
+.card {
+  width: 100%;
+  aspect-ratio: 5 / 7;
+  padding: 0.55rem;
+  border-radius: 1rem;
+  color: #ffffff;
+  background:
+    radial-gradient(circle at 70% 20%, hsl(var(--card-hue) 95% 78% / 55%), transparent 34%),
+    linear-gradient(145deg, hsl(var(--card-hue) 72% 48%), hsl(calc(var(--card-hue) + 58) 68% 20%));
+  box-shadow: 0 0.8rem 2rem rgb(23 32 42 / 18%);
+}
+
+.frame {
+  display: flex;
+  height: 100%;
+  padding: clamp(0.75rem, 4vw, 1.15rem);
+  border: 1px solid rgb(255 255 255 / 45%);
+  border-radius: 0.7rem;
+  flex-direction: column;
+  background: linear-gradient(180deg, rgb(255 255 255 / 12%), rgb(9 16 27 / 22%));
+}
+
+.typeLabel {
+  margin: 0;
+  color: rgb(255 255 255 / 78%);
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.monogram {
+  display: grid;
+  width: 42%;
+  aspect-ratio: 1;
+  margin: auto;
+  place-items: center;
+  border: 1px solid rgb(255 255 255 / 45%);
+  border-radius: 50%;
+  color: rgb(255 255 255 / 94%);
+  background: rgb(255 255 255 / 12%);
+  font-size: clamp(1.8rem, 8vw, 3.2rem);
+  font-weight: 850;
+  letter-spacing: -0.06em;
+}
+
+.name {
+  margin: 0 0 0.75rem;
+  overflow: hidden;
+  color: #ffffff;
+  font-size: clamp(1rem, 3vw, 1.3rem);
+  font-weight: 800;
+  line-height: 1.15;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

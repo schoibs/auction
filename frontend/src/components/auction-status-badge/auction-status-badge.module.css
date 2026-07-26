@@ -1,0 +1,33 @@
+.badge {
+  display: inline-flex;
+  min-height: 1.8rem;
+  padding: 0.25rem 0.65rem;
+  align-items: center;
+  border: 1px solid currentcolor;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.active {
+  color: #12633c;
+  background: #e9f8ef;
+}
+
+.closing {
+  color: #805600;
+  background: #fff8dc;
+}
+
+.closed {
+  color: #344054;
+  background: #f2f4f7;
+}
+
+.cancelled {
+  color: var(--danger-strong);
+  background: var(--danger-background);
+}

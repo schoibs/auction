@@ -1,0 +1,44 @@
+.list {
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--border);
+  list-style: none;
+}
+
+.list li {
+  display: flex;
+  padding: 0.9rem 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.list li > div {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.list time,
+.empty {
+  color: var(--text-muted);
+}
+
+.list time {
+  font-size: 0.85rem;
+}
+
+.bidder {
+  overflow: hidden;
+  font-weight: 700;
+  text-overflow: ellipsis;
+}
+
+.list strong {
+  flex-shrink: 0;
+}
+
+.empty {
+  margin-bottom: 0;
+}
