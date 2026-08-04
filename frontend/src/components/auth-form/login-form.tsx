@@ -64,7 +64,7 @@ export function LoginForm({ nextPath }: { nextPath: string }) {
   return (
     <AuthForm
       title="Welcome back"
-      description="Log in to bid and manage your cards."
+      description="Bid and manage your cards."
       submitLabel="Log in"
       submittingLabel="Logging in…"
       isSubmitting={isSubmitting}
@@ -72,7 +72,7 @@ export function LoginForm({ nextPath }: { nextPath: string }) {
       onSubmit={handleSubmit}
       footer={
         <p>
-          New here? <Link href="/register">Create an account</Link>.
+          New? <Link href="/register">Create an account</Link>
         </p>
       }
     >

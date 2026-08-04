@@ -1,34 +1,47 @@
 .filters {
   display: flex;
-  padding: 1rem;
+  padding: 8px;
   align-items: flex-end;
-  gap: 1rem;
+  gap: 8px;
   border: 1px solid var(--border);
-  border-radius: 0.85rem;
+  border-radius: 12px;
   background: var(--surface);
 }
 
 .statusGroup {
   display: flex;
-  padding: 0.2rem;
+  padding: 3px;
   align-items: center;
-  border: 1px solid var(--border);
-  border-radius: 0.65rem;
+  border: 0;
+  border-radius: 8px;
   background: var(--surface-muted);
 }
 
 .tab,
 .activeTab,
 .refresh {
-  min-height: 2.75rem;
-  border-radius: 0.5rem;
-  font-weight: 750;
+  display: inline-flex;
+  min-height: 36px;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border-radius: 7px;
+  font-size: var(--font-13);
+  font-weight: 500;
   cursor: pointer;
+}
+
+.tab svg,
+.activeTab svg,
+.refresh svg {
+  width: 14px;
+  height: 14px;
+  flex: none;
 }
 
 .tab,
 .activeTab {
-  padding: 0.55rem 0.9rem;
+  padding: 8px 14px;
   border: 0;
 }
 
@@ -38,36 +51,39 @@
 }
 
 .activeTab {
-  color: var(--accent-contrast);
-  background: var(--accent-strong);
+  color: var(--text);
+  background: var(--surface);
+  box-shadow: 0 1px 3px rgb(41 41 41 / 8%);
 }
 
 .selectGroup {
   display: flex;
-  min-width: min(100%, 15rem);
+  min-width: min(100%, 220px);
+  margin-left: 4px;
   flex-direction: column;
-  gap: 0.3rem;
+  gap: 4px;
 }
 
 .selectGroup label {
-  font-size: 0.8rem;
-  font-weight: 700;
+  color: var(--text-subtle);
+  font-size: var(--font-12);
+  font-weight: 500;
 }
 
 .selectGroup select {
-  min-height: 2.75rem;
-  padding: 0.55rem 2.2rem 0.55rem 0.75rem;
+  min-height: 36px;
+  padding: 8px 32px 8px 10px;
   border: 1px solid var(--border);
-  border-radius: 0.5rem;
+  border-radius: 7px;
   color: var(--text);
   background: var(--surface);
 }
 
 .refresh {
   margin-left: auto;
-  padding: 0.55rem 1rem;
-  border: 1px solid var(--accent-strong);
-  color: var(--accent-strong);
+  padding: 8px 14px;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
   background: var(--surface);
 }
 
@@ -91,6 +107,7 @@
 
   .selectGroup {
     width: 100%;
+    margin-left: 0;
   }
 
   .refresh {

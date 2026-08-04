@@ -265,7 +265,7 @@ export function AuctionDetail({ auctionId }: { auctionId: string }) {
           <div>
             <p className="eyebrow">Auction detail</p>
             <h1>{auction.card.cardType.name}</h1>
-            <p>Listed by {auction.seller.username}</p>
+            <p>Seller · {auction.seller.username}</p>
           </div>
           <div className={styles.headerStatus}>
             <AuctionStatusBadge status={auction.status} />

@@ -1,14 +1,6 @@
-import type { CSSProperties } from 'react';
 import type { CardType } from '../../types/api';
 import { CardStats } from '../card-stats/card-stats';
 import styles from './card-face.module.css';
-
-function hueForName(name: string): number {
-  return Array.from(name).reduce(
-    (hash, character) => (hash * 31 + character.charCodeAt(0)) % 360,
-    0,
-  );
-}
 
 function initialsForName(name: string): string {
   const initials = name
@@ -22,14 +14,10 @@ function initialsForName(name: string): string {
 }
 
 export function CardFace({ cardType }: { cardType: CardType }) {
-  const style = {
-    '--card-hue': hueForName(cardType.name),
-  } as CSSProperties;
-
   return (
-    <div className={styles.card} style={style}>
+    <div className={styles.card}>
       <div className={styles.frame}>
-        <p className={styles.typeLabel}>Virtual trading card</p>
+        <p className={styles.typeLabel}>Collector card</p>
         <div className={styles.monogram} aria-hidden="true">
           {initialsForName(cardType.name)}
         </div>

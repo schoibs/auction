@@ -3,25 +3,25 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
   margin: 0;
   overflow: hidden;
-  border: 1px solid rgb(255 255 255 / 38%);
-  border-radius: 0.65rem;
-  background: rgb(12 21 34 / 36%);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-muted);
 }
 
 .stats div {
   min-width: 0;
-  padding: 0.55rem 0.3rem;
+  padding: 8px 4px;
   text-align: center;
 }
 
 .stats div + div {
-  border-left: 1px solid rgb(255 255 255 / 25%);
+  border-left: 1px solid #e8e8e8;
 }
 
 .stats dt {
   overflow: hidden;
-  color: rgb(255 255 255 / 82%);
-  font-size: 0.65rem;
+  color: var(--text-subtle);
+  font-size: var(--font-12);
   letter-spacing: 0.04em;
   text-overflow: ellipsis;
   text-transform: uppercase;
@@ -29,7 +29,7 @@
 
 .stats dd {
   margin: 0.1rem 0 0;
-  color: #ffffff;
-  font-size: 1.05rem;
-  font-weight: 800;
+  color: var(--text);
+  font-size: var(--font-14);
+  font-weight: 500;
 }

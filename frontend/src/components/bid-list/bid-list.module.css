@@ -7,10 +7,10 @@
 
 .list li {
   display: flex;
-  padding: 0.9rem 0;
+  padding: 12px 0;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 16px;
   border-bottom: 1px solid var(--border);
 }
 
@@ -26,12 +26,13 @@
 }
 
 .list time {
-  font-size: 0.85rem;
+  color: var(--text-subtle);
+  font-size: var(--font-12);
 }
 
 .bidder {
   overflow: hidden;
-  font-weight: 700;
+  font-weight: 500;
   text-overflow: ellipsis;
 }
 

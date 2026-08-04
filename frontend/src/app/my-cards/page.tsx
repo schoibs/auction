@@ -222,11 +222,9 @@ export default function MyCardsPage() {
     <main className="page-shell" id="main-content" tabIndex={-1}>
       <header className={styles.pageHeader}>
         <div>
-          <p className="eyebrow">
-            {protectedPage.user.username}&apos;s collection
-          </p>
-          <h1>My Cards</h1>
-          <p>Choose an owned card to list it in the marketplace.</p>
+          <p className="eyebrow">{protectedPage.user.username}</p>
+          <h1>My cards</h1>
+          <p>Manage and list your collection.</p>
         </div>
       </header>
 

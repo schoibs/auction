@@ -1,24 +1,43 @@
 .header {
+  position: sticky;
+  z-index: 10;
+  top: 0;
   border-bottom: 1px solid var(--border);
-  background: var(--surface);
+  background: rgb(255 255 255 / 92%);
+  backdrop-filter: blur(16px);
 }
 
 .inner {
   display: flex;
-  width: min(100% - 2rem, var(--content-width));
-  min-height: 4.5rem;
+  width: min(100% - 48px, var(--content-width));
+  min-height: 64px;
   margin: 0 auto;
   align-items: center;
   justify-content: space-between;
-  gap: 1.25rem;
+  gap: 24px;
 }
 
 .brand {
   flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   color: var(--text);
-  font-size: 1.2rem;
-  font-weight: 800;
+  font-size: var(--font-14);
+  font-weight: 500;
   text-decoration: none;
+}
+
+.brandMark {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  border-radius: 8px;
+  color: #ffffff;
+  background: var(--text);
+  font-size: var(--font-12);
+  font-weight: 500;
 }
 
 .navigation {
@@ -27,45 +46,62 @@
   padding: 0;
   align-items: center;
   justify-content: flex-end;
-  gap: 0.5rem 1rem;
+  gap: 4px;
   list-style: none;
 }
 
 .navigation a,
 .logoutButton {
   display: inline-flex;
-  min-height: 2.75rem;
+  min-height: 36px;
+  padding: 0 12px;
   align-items: center;
+  border-radius: 8px;
+  color: var(--text-muted);
+  font-size: var(--font-13);
+  font-weight: 400;
 }
 
 .navigation a {
-  font-weight: 650;
   text-decoration: none;
 }
 
-.registerLink {
-  padding: 0 1rem;
-  border-radius: 0.6rem;
+.navigation a:hover,
+.activeLink {
+  color: var(--text) !important;
+  background: var(--surface-muted);
+}
+
+.navigation .registerLink {
+  margin-left: 4px;
   color: var(--accent-contrast);
   background: var(--accent-strong);
 }
 
-.registerLink:hover {
+.navigation .registerLink:hover {
   color: var(--accent-contrast);
   background: var(--accent);
 }
 
 .logoutButton {
-  padding: 0;
   border: 0;
-  color: var(--accent-strong);
   background: transparent;
-  font-weight: 650;
   cursor: pointer;
 }
 
+.logoutButton:hover {
+  color: var(--text);
+  background: var(--surface-muted);
+}
+
 .username {
-  color: var(--text-muted);
+  max-width: 120px;
+  overflow: hidden;
+  padding: 0 8px;
+  color: var(--text-subtle);
+  font-size: var(--font-12);
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .muted {
@@ -74,11 +110,11 @@
 
 @media (max-width: 700px) {
   .inner {
-    width: min(100% - 1.25rem, var(--content-width));
-    padding: 0.75rem 0;
+    width: min(100% - 32px, var(--content-width));
+    padding: 12px 0;
     align-items: flex-start;
     flex-direction: column;
-    gap: 0.25rem;
+    gap: 8px;
   }
 
   .navigation {

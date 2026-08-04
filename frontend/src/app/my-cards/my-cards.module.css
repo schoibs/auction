@@ -1,5 +1,7 @@
 .pageHeader {
-  margin-bottom: 2rem;
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
 }
 
 .pageHeader p:last-child {
@@ -9,36 +11,37 @@
 
 .filters {
   display: flex;
-  padding: 1rem;
+  padding: 8px;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 8px;
   border: 1px solid var(--border);
-  border-radius: 0.85rem;
+  border-radius: 12px;
   background: var(--surface);
 }
 
 .statusGroup {
   display: flex;
-  padding: 0.2rem;
+  padding: 3px;
   align-items: center;
-  border: 1px solid var(--border);
-  border-radius: 0.65rem;
+  border: 0;
+  border-radius: 8px;
   background: var(--surface-muted);
 }
 
 .tab,
 .activeTab,
 .refresh {
-  min-height: 2.75rem;
-  border-radius: 0.5rem;
-  font-weight: 750;
+  min-height: 36px;
+  border-radius: 7px;
+  font-size: var(--font-13);
+  font-weight: 500;
   cursor: pointer;
 }
 
 .tab,
 .activeTab {
-  padding: 0.55rem 0.9rem;
+  padding: 8px 14px;
   border: 0;
 }
 
@@ -48,14 +51,15 @@
 }
 
 .activeTab {
-  color: var(--accent-contrast);
-  background: var(--accent-strong);
+  color: var(--text);
+  background: var(--surface);
+  box-shadow: 0 1px 3px rgb(41 41 41 / 8%);
 }
 
 .refresh {
-  padding: 0.55rem 1rem;
-  border: 1px solid var(--accent-strong);
-  color: var(--accent-strong);
+  padding: 8px 14px;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
   background: var(--surface);
 }
 
@@ -67,17 +71,17 @@
 }
 
 .refreshStatus {
-  margin: 1rem 0 0;
-  color: var(--text-muted);
-  font-size: 0.9rem;
+  margin: 12px 0 0;
+  color: var(--text-subtle);
+  font-size: var(--font-12);
 }
 
 .refreshError {
   display: flex;
-  margin-top: 1rem;
-  padding: 0.75rem 1rem;
+  margin-top: 12px;
+  padding: 10px 12px;
   border: 1px solid var(--danger-border);
-  border-radius: 0.65rem;
+  border-radius: 8px;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
@@ -86,21 +90,21 @@
 }
 
 .refreshError button {
-  min-height: 2.75rem;
-  padding: 0.5rem;
+  min-height: 36px;
+  padding: 6px 8px;
   border: 0;
   color: var(--danger-strong);
   background: transparent;
-  font-weight: 700;
+  font-weight: 500;
   cursor: pointer;
 }
 
 .results {
-  margin-top: 2.5rem;
+  margin-top: 32px;
 }
 
 .resultsHeading {
-  margin-bottom: 1rem;
+  margin-bottom: 12px;
 }
 
 .resultsHeading h2 {
@@ -109,19 +113,19 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 248px), 1fr));
   align-items: start;
-  gap: 1.25rem;
+  gap: 16px;
 }
 
 .loadMore {
   display: flex;
-  margin-top: 2rem;
+  margin-top: 24px;
   justify-content: center;
 }
 
 .incrementalError {
-  margin-top: 1.5rem;
+  margin-top: 20px;
 }
 
 @media (max-width: 600px) {

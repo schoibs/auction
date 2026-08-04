@@ -254,10 +254,9 @@ export function AuctionMarketplace() {
   return (
     <main className="page-shell" id="main-content" tabIndex={-1}>
       <header className={styles.pageHeader}>
-        <div>
-          <p className="eyebrow">Marketplace</p>
-          <h1>Find your next card</h1>
-          <p>Browse live auctions or review recently completed sales.</p>
+        <div className={styles.headerCopy}>
+          <h1>Marketplace</h1>
+          <p>Live and completed card listings.</p>
         </div>
       </header>
 
@@ -317,7 +316,7 @@ export function AuctionMarketplace() {
           >
             <div className={styles.resultsHeading}>
               <h2 id="auction-results-title">
-                {status === 'ACTIVE' ? 'Live auctions' : 'Completed auctions'}
+                {status === 'ACTIVE' ? 'Live Auctions' : 'Completed Auctions'}
               </h2>
               {selectedCardTypeId ? (
                 <p>

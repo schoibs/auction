@@ -1,44 +1,44 @@
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
-  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 248px), 1fr));
+  gap: 16px;
 }
 
 .card {
-  padding: 1rem;
+  padding: 12px;
   border: 1px solid var(--border);
-  border-radius: 1rem;
+  border-radius: 14px;
   background: var(--surface);
 }
 
 .face,
 .line,
 .shortLine {
-  background: linear-gradient(100deg, var(--surface-muted) 25%, #f7f8fa 50%, var(--surface-muted) 75%);
+  background: linear-gradient(100deg, var(--surface-muted) 25%, #fafafa 50%, var(--surface-muted) 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite linear;
 }
 
 .face {
   aspect-ratio: 5 / 4;
-  margin-bottom: 1rem;
-  border-radius: 0.75rem;
+  margin-bottom: 12px;
+  border-radius: 10px;
 }
 
 .line,
 .shortLine {
-  height: 0.8rem;
+  height: 12px;
   border-radius: 999px;
 }
 
 .shortLine {
   width: 65%;
-  margin-top: 0.65rem;
+  margin-top: 10px;
 }
 
 .message {
   margin: 0;
-  color: var(--text-muted);
+  color: var(--text-subtle);
 }
 
 @keyframes shimmer {

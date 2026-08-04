@@ -1,26 +1,38 @@
 .pageHeader {
   display: flex;
-  margin-bottom: 2rem;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 1rem;
+  min-height: 196px;
+  margin-bottom: 24px;
+  padding: 32px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  align-items: center;
+  background:
+    linear-gradient(90deg, #ffffff 0 37%, rgb(255 255 255 / 82%) 52%, transparent 76%),
+    url('/images/marketplace-header.jpg') right 42% / cover no-repeat,
+    var(--surface-muted);
 }
 
-.pageHeader p:last-child {
+.headerCopy {
+  position: relative;
+  z-index: 1;
+}
+
+.headerCopy p:last-child {
   margin-bottom: 0;
   color: var(--text-muted);
 }
 
 .results {
-  margin-top: 2.5rem;
+  margin-top: 32px;
 }
 
 .newAuctionNotice {
   display: flex;
-  margin-top: 1rem;
-  padding: 0.75rem 1rem;
+  margin-top: 12px;
+  padding: 10px 12px;
   border: 1px solid var(--border);
-  border-radius: 0.65rem;
+  border-radius: 8px;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
@@ -28,27 +40,27 @@
 }
 
 .newAuctionNotice button {
-  min-height: 2.75rem;
-  padding: 0.5rem;
+  min-height: 36px;
+  padding: 6px 8px;
   border: 0;
   color: var(--accent-strong);
   background: transparent;
-  font-weight: 700;
+  font-weight: 500;
   cursor: pointer;
 }
 
 .refreshStatus {
-  margin: 1rem 0 0;
-  color: var(--text-muted);
-  font-size: 0.9rem;
+  margin: 12px 0 0;
+  color: var(--text-subtle);
+  font-size: var(--font-12);
 }
 
 .refreshError {
   display: flex;
-  margin-top: 1rem;
-  padding: 0.75rem 1rem;
+  margin-top: 12px;
+  padding: 10px 12px;
   border: 1px solid var(--danger-border);
-  border-radius: 0.65rem;
+  border-radius: 8px;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
@@ -57,18 +69,18 @@
 }
 
 .refreshError button {
-  min-height: 2.75rem;
-  padding: 0.5rem;
+  min-height: 36px;
+  padding: 6px 8px;
   border: 0;
   color: var(--danger-strong);
   background: transparent;
-  font-weight: 700;
+  font-weight: 500;
   cursor: pointer;
 }
 
 .resultsHeading {
   display: flex;
-  margin-bottom: 1rem;
+  margin-bottom: 12px;
   align-items: baseline;
   justify-content: space-between;
   gap: 1rem;
@@ -80,26 +92,42 @@
 }
 
 .resultsHeading p {
-  color: var(--text-muted);
+  color: var(--text-subtle);
+  font-size: var(--font-12);
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
-  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 248px), 1fr));
+  gap: 16px;
 }
 
 .loadMore {
   display: flex;
-  margin-top: 2rem;
+  margin-top: 24px;
   justify-content: center;
 }
 
 .incrementalError {
-  margin-top: 1.5rem;
+  margin-top: 20px;
+}
+
+@media (max-width: 700px) {
+  .pageHeader {
+    min-height: 160px;
+    padding: 24px;
+    background:
+      linear-gradient(90deg, #ffffff 0 44%, rgb(255 255 255 / 82%) 66%, transparent 100%),
+      url('/images/marketplace-header.jpg') 62% center / cover no-repeat,
+      var(--surface-muted);
+  }
 }
 
 @media (max-width: 600px) {
+  .pageHeader {
+    min-height: 144px;
+  }
+
   .newAuctionNotice,
   .refreshError,
   .resultsHeading {

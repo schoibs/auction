@@ -1,29 +1,38 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useAuth } from '../../contexts/auth-context';
 import styles from './app-header.module.css';
 
 export function AppHeader() {
   const { logout, status, user } = useAuth();
+  const pathname = usePathname();
 
   return (
     <header className={styles.header}>
       <div className={styles.inner}>
         <Link className={styles.brand} href="/auctions">
-          Auction Marketplace
+          <span className={styles.brandMark} aria-hidden="true">
+            A
+          </span>
+          <span>Auction</span>
         </Link>
         <nav aria-label="Primary navigation">
           <ul className={styles.navigation}>
-            <li>
-              <Link href="/auctions">Auctions</Link>
-            </li>
             {status === 'loading' ? (
               <li className={styles.muted}>Checking session…</li>
             ) : status === 'authenticated' && user ? (
               <>
                 <li>
-                  <Link href="/my-cards">My Cards</Link>
+                  <Link
+                    className={
+                      pathname === '/my-cards' ? styles.activeLink : undefined
+                    }
+                    href="/my-cards"
+                  >
+                    My cards
+                  </Link>
                 </li>
                 <li className={styles.username} aria-label="Signed in user">
                   {user.username}

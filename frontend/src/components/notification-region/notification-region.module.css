@@ -1,44 +1,44 @@
 .region {
   position: fixed;
   z-index: 20;
-  right: 1rem;
-  bottom: 1rem;
-  width: min(calc(100% - 2rem), 28rem);
+  right: 16px;
+  bottom: 16px;
+  width: min(calc(100% - 32px), 400px);
 }
 
 .region ul {
   display: grid;
   margin: 0;
   padding: 0;
-  gap: 0.75rem;
+  gap: 12px;
   list-style: none;
 }
 
 .notification {
   display: flex;
-  padding: 1rem;
+  padding: 14px;
   border: 1px solid var(--border);
-  border-left: 0.35rem solid var(--accent-strong);
-  border-radius: 0.75rem;
+  border-left: 3px solid var(--accent-strong);
+  border-radius: 10px;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 16px;
   background: var(--surface);
-  box-shadow: 0 0.75rem 2rem rgb(23 32 42 / 18%);
+  box-shadow: 0 14px 32px rgb(41 41 41 / 12%);
 }
 
 .notification p {
-  margin: 0.25rem 0 0;
+  margin: 4px 0 0;
   color: var(--text-muted);
 }
 
 .notification button {
-  min-height: 2.75rem;
-  padding: 0.5rem;
+  min-height: 36px;
+  padding: 6px 8px;
   border: 0;
   color: var(--accent-strong);
   background: transparent;
-  font-weight: 700;
+  font-weight: 500;
   cursor: pointer;
 }
 

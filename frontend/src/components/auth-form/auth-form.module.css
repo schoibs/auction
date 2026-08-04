@@ -1,43 +1,42 @@
 .panel {
-  width: min(100%, 32rem);
+  width: min(100%, 420px);
   margin: 0 auto;
-  padding: clamp(1.25rem, 5vw, 2.25rem);
+  padding: 32px;
   border: 1px solid var(--border);
-  border-radius: 1rem;
+  border-radius: 14px;
   background: var(--surface);
-  box-shadow: 0 1rem 2.5rem rgb(23 32 42 / 8%);
 }
 
 .title {
-  margin-bottom: 0.75rem;
-  font-size: clamp(2rem, 7vw, 3rem);
+  margin-bottom: 8px;
+  font-size: var(--font-24);
 }
 
 .description {
-  margin-bottom: 1.75rem;
+  margin-bottom: 24px;
   color: var(--text-muted);
 }
 
 .form {
   display: grid;
-  gap: 1.1rem;
+  gap: 16px;
 }
 
 .field {
   display: grid;
-  gap: 0.4rem;
+  gap: 6px;
 }
 
 .field label {
-  font-weight: 700;
+  font-weight: 500;
 }
 
 .field input {
   width: 100%;
-  min-height: 2.9rem;
-  padding: 0.65rem 0.75rem;
+  min-height: 40px;
+  padding: 9px 10px;
   border: 1px solid var(--border);
-  border-radius: 0.55rem;
+  border-radius: 8px;
   color: var(--text);
   background: var(--surface);
 }
@@ -49,35 +48,35 @@
 .fieldError {
   margin: 0;
   color: var(--danger);
-  font-size: 0.9rem;
+  font-size: var(--font-12);
 }
 
 .formError {
-  padding: 0.85rem 1rem;
+  padding: 12px;
   border: 1px solid var(--danger-border);
-  border-radius: 0.55rem;
+  border-radius: 8px;
   color: var(--danger-strong);
   background: var(--danger-background);
 }
 
 .formError p {
-  margin-bottom: 0.35rem;
-  font-weight: 700;
+  margin-bottom: 5px;
+  font-weight: 500;
 }
 
 .formError ul {
   margin: 0;
-  padding-left: 1.25rem;
+  padding-left: 18px;
 }
 
 .submitButton {
-  min-height: 3rem;
-  padding: 0.7rem 1rem;
-  border: 0;
-  border-radius: 0.6rem;
+  min-height: 40px;
+  padding: 10px 16px;
+  border: 1px solid var(--accent-strong);
+  border-radius: 8px;
   color: var(--accent-contrast);
   background: var(--accent-strong);
-  font-weight: 750;
+  font-weight: 500;
   cursor: pointer;
 }
 
@@ -91,11 +90,17 @@
 }
 
 .footer {
-  margin-top: 1.5rem;
+  margin-top: 20px;
   color: var(--text-muted);
   text-align: center;
 }
 
 .footer p {
   margin-bottom: 0;
+}
+
+@media (max-width: 520px) {
+  .panel {
+    padding: 24px;
+  }
 }

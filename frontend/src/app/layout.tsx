@@ -7,7 +7,7 @@ import { RealtimeProvider } from '../contexts/realtime-context';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Auction Marketplace',
+  title: 'Auction',
   description: 'Browse and bid on virtual trading cards.',
 };
 

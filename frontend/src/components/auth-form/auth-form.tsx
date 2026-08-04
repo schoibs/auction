@@ -38,7 +38,7 @@ export function AuthForm({
           {children}
           {errorMessages.length > 0 ? (
             <div className={styles.formError} aria-live="polite">
-              <p>We could not complete your request:</p>
+              <p>Something went wrong.</p>
               <ul>
                 {errorMessages.map((message) => (
                   <li key={message}>{message}</li>

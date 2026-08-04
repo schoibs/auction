@@ -69,8 +69,8 @@ export function RegisterForm() {
 
   return (
     <AuthForm
-      title="Create your account"
-      description="Register to bid on auctions and list owned cards."
+      title="Create account"
+      description="Bid and list your cards."
       submitLabel="Register"
       submittingLabel="Creating account…"
       isSubmitting={isSubmitting}
@@ -78,7 +78,7 @@ export function RegisterForm() {
       onSubmit={handleSubmit}
       footer={
         <p>
-          Already registered? <Link href="/login">Log in</Link>.
+          Have an account? <Link href="/login">Log in</Link>
         </p>
       }
     >
