@@ -1,0 +1,130 @@
+.panel {
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #dedede;
+  border-radius: 12px;
+  background: var(--surface);
+}
+
+.heading {
+  display: flex;
+  margin-bottom: 20px;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.heading h2 {
+  margin: 0;
+}
+
+.cancel {
+  min-height: 36px;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  background: var(--surface);
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.panel form,
+.panel fieldset {
+  display: grid;
+  gap: 20px;
+}
+
+.panel fieldset {
+  min-width: 0;
+  padding: 0;
+  border: 0;
+}
+
+.fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.field {
+  display: grid;
+  gap: 5px;
+}
+
+.field label,
+.choices > span {
+  font-weight: 500;
+}
+
+.field input {
+  width: 100%;
+  min-height: 40px;
+  padding: 9px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  background: var(--surface);
+}
+
+.field input[aria-invalid='true'] {
+  border-color: var(--danger);
+}
+
+.hint {
+  color: var(--text-muted);
+  font-size: var(--font-12);
+}
+
+.error,
+.formError {
+  color: var(--danger-strong);
+}
+
+.error,
+.formError p {
+  margin: 0;
+}
+
+.error {
+  font-size: var(--font-12);
+}
+
+.choices {
+  display: grid;
+  gap: 7px;
+}
+
+.choices > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.choices button {
+  min-height: 36px;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-muted);
+  background: var(--surface);
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.formError {
+  padding: 10px 12px;
+  border: 1px solid var(--danger-border);
+  border-radius: 8px;
+  background: var(--danger-background);
+}
+
+.formError p + p {
+  margin-top: 0.35rem;
+}
+
+@media (max-width: 620px) {
+  .fields {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

@@ -29,6 +29,25 @@ services:
       - .:/app
       - /app/node_modules
 
+  frontend:
+    build:
+      context: ./frontend
+      target: dev
+    command: npm run dev -- --hostname 0.0.0.0
+    ports:
+      - "3001:3000"
+    environment:
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:3000}
+      NEXT_PUBLIC_SOCKET_URL: ${NEXT_PUBLIC_SOCKET_URL:-http://localhost:3000}
+      NEXT_PUBLIC_AUCTION_MIN_DURATION_SECONDS: ${AUCTION_MIN_DURATION_SECONDS:-30}
+      NEXT_PUBLIC_AUCTION_MAX_DURATION_SECONDS: ${AUCTION_MAX_DURATION_SECONDS:-604800}
+    depends_on:
+      - api
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.next
+
   postgres:
     image: postgres:16
     environment:
@@ -54,4 +73,3 @@ services:
 
 volumes:
   postgres_data:
-  

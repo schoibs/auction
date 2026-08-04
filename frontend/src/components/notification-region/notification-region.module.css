@@ -1,0 +1,55 @@
+.region {
+  position: fixed;
+  z-index: 20;
+  right: 16px;
+  bottom: 16px;
+  width: min(calc(100% - 32px), 400px);
+}
+
+.region ul {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  gap: 12px;
+  list-style: none;
+}
+
+.notification {
+  display: flex;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent-strong);
+  border-radius: 10px;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  background: var(--surface);
+  box-shadow: 0 14px 32px rgb(41 41 41 / 12%);
+}
+
+.notification p {
+  margin: 4px 0 0;
+  color: var(--text-muted);
+}
+
+.notification button {
+  min-height: 36px;
+  padding: 6px 8px;
+  border: 0;
+  color: var(--accent-strong);
+  background: transparent;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+@media (max-width: 480px) {
+  .region {
+    right: 0.625rem;
+    bottom: 0.625rem;
+    width: calc(100% - 1.25rem);
+  }
+
+  .notification {
+    flex-direction: column;
+  }
+}

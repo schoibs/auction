@@ -1,0 +1,106 @@
+.panel {
+  width: min(100%, 420px);
+  margin: 0 auto;
+  padding: 32px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface);
+}
+
+.title {
+  margin-bottom: 8px;
+  font-size: var(--font-24);
+}
+
+.description {
+  margin-bottom: 24px;
+  color: var(--text-muted);
+}
+
+.form {
+  display: grid;
+  gap: 16px;
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+}
+
+.field label {
+  font-weight: 500;
+}
+
+.field input {
+  width: 100%;
+  min-height: 40px;
+  padding: 9px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  background: var(--surface);
+}
+
+.field input[aria-invalid='true'] {
+  border-color: var(--danger);
+}
+
+.fieldError {
+  margin: 0;
+  color: var(--danger);
+  font-size: var(--font-12);
+}
+
+.formError {
+  padding: 12px;
+  border: 1px solid var(--danger-border);
+  border-radius: 8px;
+  color: var(--danger-strong);
+  background: var(--danger-background);
+}
+
+.formError p {
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.formError ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.submitButton {
+  min-height: 40px;
+  padding: 10px 16px;
+  border: 1px solid var(--accent-strong);
+  border-radius: 8px;
+  color: var(--accent-contrast);
+  background: var(--accent-strong);
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.submitButton:hover:not(:disabled) {
+  background: var(--accent);
+}
+
+.submitButton:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.footer {
+  margin-top: 20px;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.footer p {
+  margin-bottom: 0;
+}
+
+@media (max-width: 520px) {
+  .panel {
+    padding: 24px;
+  }
+}

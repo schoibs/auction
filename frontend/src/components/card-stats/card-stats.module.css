@@ -1,0 +1,35 @@
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-muted);
+}
+
+.stats div {
+  min-width: 0;
+  padding: 8px 4px;
+  text-align: center;
+}
+
+.stats div + div {
+  border-left: 1px solid #e8e8e8;
+}
+
+.stats dt {
+  overflow: hidden;
+  color: var(--text-subtle);
+  font-size: var(--font-12);
+  letter-spacing: 0.04em;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+}
+
+.stats dd {
+  margin: 0.1rem 0 0;
+  color: var(--text);
+  font-size: var(--font-14);
+  font-weight: 500;
+}

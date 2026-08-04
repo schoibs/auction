@@ -1,0 +1,124 @@
+.header {
+  position: sticky;
+  z-index: 10;
+  top: 0;
+  border-bottom: 1px solid var(--border);
+  background: rgb(255 255 255 / 92%);
+  backdrop-filter: blur(16px);
+}
+
+.inner {
+  display: flex;
+  width: min(100% - 48px, var(--content-width));
+  min-height: 64px;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.brand {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text);
+  font-size: var(--font-14);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.brandMark {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  border-radius: 8px;
+  color: #ffffff;
+  background: var(--text);
+  font-size: var(--font-12);
+  font-weight: 500;
+}
+
+.navigation {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  list-style: none;
+}
+
+.navigation a,
+.logoutButton {
+  display: inline-flex;
+  min-height: 36px;
+  padding: 0 12px;
+  align-items: center;
+  border-radius: 8px;
+  color: var(--text-muted);
+  font-size: var(--font-13);
+  font-weight: 400;
+}
+
+.navigation a {
+  text-decoration: none;
+}
+
+.navigation a:hover,
+.activeLink {
+  color: var(--text) !important;
+  background: var(--surface-muted);
+}
+
+.navigation .registerLink {
+  margin-left: 4px;
+  color: var(--accent-contrast);
+  background: var(--accent-strong);
+}
+
+.navigation .registerLink:hover {
+  color: var(--accent-contrast);
+  background: var(--accent);
+}
+
+.logoutButton {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.logoutButton:hover {
+  color: var(--text);
+  background: var(--surface-muted);
+}
+
+.username {
+  max-width: 120px;
+  overflow: hidden;
+  padding: 0 8px;
+  color: var(--text-subtle);
+  font-size: var(--font-12);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.muted {
+  color: var(--text-muted);
+}
+
+@media (max-width: 700px) {
+  .inner {
+    width: min(100% - 32px, var(--content-width));
+    padding: 12px 0;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .navigation {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+}
